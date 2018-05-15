@@ -1,0 +1,31 @@
+//Point2D.h
+//Superclass to Point3D
+#ifndef Point2D_H
+#define Point2D_H
+
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string>
+#include <cmath>
+
+using namespace std;
+
+class Point2D{
+protected:
+   int aX, aY;
+   double distFrOrigin;
+   virtual int setDistFromOrigin();
+public:
+   Point2D();
+   Point2D(int, int);
+   ~Point2D();
+   int setX(int);
+   int setY(int);
+   int getX();
+   int getY();
+   double getScalarValue();
+   friend ostream& operator <<(ostream&, Point2D&);
+};
+
+#endif
