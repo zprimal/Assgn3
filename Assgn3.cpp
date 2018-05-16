@@ -5,28 +5,80 @@
 #include "Assgn3.h"
 
 int main(){
-   printDetails();
-   if (readFile() == 1) {
-      cout << " - - - Failed to read file! Terminating Program! - - - " << endl;
+   printVer();
+   if (startMenu() == 1) {
+      cout << " - - - Failed to run menu! Terminating Program! - - - " << endl;
       exit(0);
    }
 }
 
-int printDetails(){
-   printf("\n\n  |==============================|\n");
-   printf("  | Name:  | J█████ T██ J██ J██  |\n");
-   printf("  | ID:    | ███████             |\n");
+int printVer(){
+   printf("====================================\n");
    printf("  | Ver:   | ███████             |\n");
-   printf("  |==============================|\n");
    return 0;
 }
 
-int readFile(){
+int printMMenu(){
+   printf("====================================\n");
+   printf("  | Name:  | J█████ T██ J██ J██  |  \n");
+   printf("  | ID:    | ███████             |  \n");
+   printf("====================================\n");
+   printf("1. Read in data\n");
+   printf("2. Specify filtering criteria (current : %s)\n", curFilterOpt.c_str());
+   printf("3. Specify sorting criteria (current : %s)\n", curSortOpt.c_str());
+   printf("4. Specify sorting order (current : %s)\n", curSortOrder.c_str());
+   printf("5. View data\n");
+   printf("6. Store data\n");
+   printf("7. Exit program\n");
+   printf("====================================\n");
+   printf("Select an option: ");
+   return 0;
+}
+
+int startMenu(){
+   string menuChoice = "";
+   while(1){
+      printMMenu();
+      getline(cin,menuChoice);
+      if (menuChoice == "1") {
+         readInData();
+      } else if (menuChoice == "2") {
+         specFilCrit();
+      } else if (menuChoice == "3") {
+         specSorCrit();
+      } else if (menuChoice == "4") {
+         specSorOrder();
+      } else if (menuChoice == "5") {
+         viewData();
+      } else if (menuChoice == "6") {
+         storeData();
+      } else if (menuChoice == "7") {
+         printf("--- Shutting down! ---\n");
+         exit(0);
+      } else {
+         printf("Error: Enter a number from 1-7 corresponding with the options in the menu!\n");
+      }
+   }
+   return 1;
+}
+
+int readInData(){
+   string filePath;
+   cout << "Enter Filename.txt" << endl;
+   getline(cin,filePath);
+   if (filePath.empty()) {
+      cout << "Error: Filepath cannot be blank!" << endl;
+      return 1;
+   }
+   readFile(filePath);
+}
+
+int readFile(string fileName){
    // Read file data here
-   string fileName = "RawData.txt";
    ifstream inFile;
    inFile.open(fileName);
    if (!inFile){
+      cout << "Cannot open file" << endl;
 		return 1;
 	}
 
@@ -149,4 +201,48 @@ int readFile(){
 	inFile.close();
 
    return 0;
+}
+
+int specFilCrit(){
+   cout << "====================================" << endl;
+   cout << "1. Point2D records" << endl;
+   cout << "2. Point3D records" << endl;
+   cout << "3. Line2D records" << endl;
+   cout << "4. Line3D records" << endl;
+   cout << "====================================" << endl;
+   string newFilCrit;
+   cout << "Choose a filter criteria" << endl;
+   getline(cin,newFilCrit);
+   if (newFilCrit.empty()) {
+      cout << "Error: Filepath cannot be blank!" << endl;
+      return 1;
+   } else if (newFilCrit == "1") {
+      curFilterOpt = "Point2D";
+   } else if (newFilCrit == "2") {
+      curFilterOpt = "Point3D";
+   } else if (newFilCrit == "3") {
+      curFilterOpt = "Line2D";
+   } else if (newFilCrit == "4") {
+      curFilterOpt = "Line3D";
+   } else {
+      cout << "Error: Enter a number between 1-4 corresponding to the options given!" << endl;
+      return 1;
+   }
+   return 0;
+}
+
+int specSorCrit(){
+
+}
+
+int specSorOrder(){
+
+}
+
+int viewData(){
+
+}
+
+int storeData(){
+
 }

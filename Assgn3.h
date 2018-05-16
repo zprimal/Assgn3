@@ -15,16 +15,26 @@
 
 using namespace std;
 
-int printDetails();
+int printVer();
+int printMMenu();
 int startMenu();
-int readFile();
-int readySorted();
-int displaySorted();
+int readInData();
+int readFile(string);
+int specFilCrit();
+int specSorCrit();
+int specSorOrder();
+int viewData();
+int storeData();
 
 //v v v Make global values here v v v
 vector<Point2D> GP2D;
 vector<Point3D> GP3D;
 vector<Line2D> GL2D;
 vector<Line3D> GL3D;
+
+//Global settings
+string curFilterOpt = "Point2D";
+string curSortOpt = "X-Ordinate";
+string curSortOrder = "ASC";
 
 #endif
