@@ -27,6 +27,8 @@ public:
    friend ostream& operator <<(ostream&, Point3D&);
    friend Point3D operator +(const Point3D&, const Point3D&);
    friend Point3D operator -(const Point3D&, const Point3D&);
+   friend bool operator ==(const Point3D&, const Point3D&);
+   friend bool operator <(const Point3D&, const Point3D&);
 };
 
 #endif

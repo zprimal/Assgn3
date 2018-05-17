@@ -25,9 +25,13 @@ public:
    int getX();
    int getY();
    virtual double getScalarValue();
+   friend bool sortltX(Point2D, Point2D);
+   friend bool sortltY(Point2D, Point2D);
    friend ostream& operator <<(ostream&, Point2D&);
    friend Point2D operator +(const Point2D&, const Point2D&);
    friend Point2D operator -(const Point2D&, const Point2D&);
+   friend bool operator ==(const Point2D&, const Point2D&);
+   friend bool operator <(const Point2D&, const Point2D&);
 };
 
 #endif

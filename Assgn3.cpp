@@ -24,9 +24,9 @@ int printMMenu(){
    printf("  | ID:    | ███████             |  \n");
    printf("====================================\n");
    printf("1. Read in data\n");
-   printf("2. Specify filtering criteria (current : %s)\n", curFilterOpt.c_str());
-   printf("3. Specify sorting criteria (current : %s)\n", curSortOpt.c_str());
-   printf("4. Specify sorting order (current : %s)\n", curSortOrder.c_str());
+   printf("2. Specify filtering criteria  (current : %s)\n", curFilterOpt.c_str());
+   printf("3. Specify sorting criteria    (current : %s)\n", curSortOpt.c_str());
+   printf("4. Specify sorting order       (current : %s)\n", curSortOrder.c_str());
    printf("5. View data\n");
    printf("6. Store data to file\n");
    printf("7. Exit program\n");
@@ -218,7 +218,29 @@ int readFile(string fileName){
    for(int i=0; i<GL3D.size(); ++i){
       cout << i+1 << ". " << GL3D[i] << endl;
    }
-   cout << "====================================" << endl;
+
+   purgeDups();
+
+   cout << "\nPoint2D" << endl;
+   for(int i=0; i<GP2D.size(); ++i){
+      cout << i+1 << ". " << GP2D[i] << endl;
+   }
+
+   cout << "\nPoint3D" << endl;
+   for(int i=0; i<GP3D.size(); ++i){
+      cout << i+1 << ". " << GP3D[i] << endl;
+   }
+
+   cout << "\nLine2D" << endl;
+   for(int i=0; i<GL2D.size(); ++i){
+      cout << i+1 << ". " << GL2D[i] << endl;
+   }
+
+   cout << "\nLine3D" << endl;
+   for(int i=0; i<GL3D.size(); ++i){
+      cout << i+1 << ". " << GL3D[i] << endl;
+   }
+   /*cout << "====================================" << endl;
    cout << "\nPoint2D plus" << endl;
    for(int i=0; i<GP2D.size()-1; ++i){
       int j = i+1;
@@ -242,10 +264,9 @@ int readFile(string fileName){
 
    cout << "\nLine3D plus" << endl;
    for(int i=0; i<GL3D.size()-1; ++i){
-      int j = i+1;
       Line3D tL3D = difference(GL3D[i], GL3D[i+1]);//editing in progress 170518
       cout << i+1 << ". " << tL3D << endl;
-   }
+   }//*/
 
    return 0;
 }
@@ -258,19 +279,23 @@ int specFilCrit(){
    cout << "4. Line3D records" << endl;
    cout << "====================================" << endl;
    string newFilCrit;
-   cout << "Choose a filter criteria" << endl;
+   cout << "Choose a filter criteria:" << endl;
    getline(cin,newFilCrit);
    if (newFilCrit.empty()) {
       cout << "Error: Filepath cannot be blank!" << endl;
       return 1;
    } else if (newFilCrit == "1") {
       curFilterOpt = "Point2D";
+      curSortOpt = "X-Ordinate";
    } else if (newFilCrit == "2") {
       curFilterOpt = "Point3D";
+      curSortOpt = "X-Ordinate";
    } else if (newFilCrit == "3") {
       curFilterOpt = "Line2D";
+      curSortOpt = "Pt1-Ordinate";
    } else if (newFilCrit == "4") {
       curFilterOpt = "Line3D";
+      curSortOpt = "Pt1-Ordinate";
    } else {
       cout << "Error: Enter a number between 1-4 corresponding to the options given!" << endl;
       return 1;
@@ -282,19 +307,63 @@ int specSorCrit(){
    string newSorCrit;
    if (curFilterOpt == "Point2D") {
       cout << "====================================" << endl;
-      cout << "1. Point2D records" << endl;
-      cout << "2. Point3D records" << endl;
-      cout << "3. Line2D records" << endl;
-      cout << "4. Line3D records" << endl;
+      cout << "1. X-Ordinate value" << endl;
+      cout << "2. Y-Ordinate value" << endl;
+      cout << "3. distFrOrigin value" << endl;
       cout << "====================================" << endl;
+      cout << "Choose a sorting criteria:" << endl;
+      getline(cin,newSorCrit);
+      if (newSorCrit == "1") {
+         curSortOpt = "X-Ordinate";
+      } else if (newSorCrit == "2") {
+         curSortOpt = "Y-Ordinate";
+      } else if (newSorCrit == "3") {
+         curSortOpt = "DistFrOrigin";
+      } else {
+         cout << "Error: Enter a number between 1-3 corresponding to the options given!" << endl;
+         return 1;
+      }
    } else if (curFilterOpt == "Point3D") {
-      /* code */
-   } else if (curFilterOpt == "Line2D") {
-      /* code */
-   } else if (curFilterOpt == "Line3D") {
-      /* code */
+      cout << "====================================" << endl;
+      cout << "1. X-Ordinate value" << endl;
+      cout << "2. Y-Ordinate value" << endl;
+      cout << "3. Z-Ordinate value" << endl;
+      cout << "4. distFrOrigin value" << endl;
+      cout << "====================================" << endl;
+      cout << "Choose a sorting criteria:" << endl;
+      getline(cin,newSorCrit);
+      if (newSorCrit == "1") {
+         curSortOpt = "X-Ordinate";
+      } else if (newSorCrit == "2") {
+         curSortOpt = "Y-Ordinate";
+      } else if (newSorCrit == "3") {
+         curSortOpt = "Z-Ordinate";
+      } else if (newSorCrit == "4") {
+         curSortOpt = "DistFrOrigin";
+      } else {
+         cout << "Error: Enter a number between 1-4 corresponding to the options given!" << endl;
+         return 1;
+      }
+   } else if (curFilterOpt == "Line2D" || curFilterOpt == "Line3D") {
+      cout << "====================================" << endl;
+      cout << "1. Point 1 Ordinate values" << endl;
+      cout << "2. Point 2 Ordinate values" << endl;
+      cout << "3. Length value" << endl;
+      cout << "====================================" << endl;
+      cout << "Choose a sorting criteria:" << endl;
+      getline(cin,newSorCrit);
+      if (newSorCrit == "1") {
+         curSortOpt = "Pt1-Ordinate";
+      } else if (newSorCrit == "2") {
+         curSortOpt = "Pt2-Ordinate";
+      } else if (newSorCrit == "3") {
+         curSortOpt = "Length";
+      } else {
+         cout << "Error: Enter a number between 1-3 corresponding to the options given!" << endl;
+         return 1;
+      }
    } else {
-      printf("Unexpected error occured: curFilterOpt attr does not match standard\n");
+      printf("Unexpected error occured: curFilterOpt attr does not match standard!\n");
       exit(1);
    }
    return 0;
@@ -328,4 +397,22 @@ int viewData(){
 
 int storeData(){
 
+}
+
+int purgeDups(){
+   cout << "====================================" << endl;
+   cout << "========-- PURGE INITIATED --=======" << endl;
+   cout << "====================================" << endl;
+   sort(GP2D.begin(), GP2D.end());
+   GP2D.erase(unique(GP2D.begin(), GP2D.end()), GP2D.end());
+
+   sort(GP3D.begin(), GP3D.end());
+   GP3D.erase(unique(GP3D.begin(), GP3D.end()), GP3D.end());
+
+   sort(GL2D.begin(), GL2D.end());
+   GL2D.erase(unique(GL2D.begin(), GL2D.end()), GL2D.end());
+
+   sort(GL3D.begin(), GL3D.end());
+   GL3D.erase(unique(GL3D.begin(), GL3D.end()), GL3D.end());
+   return 0;
 }

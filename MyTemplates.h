@@ -15,4 +15,15 @@ T difference(T a, T b){
    return(a - b);
 }
 
+template <class T>
+double scalar_difference(T a, T b){
+   T c = a - b;
+   return c->getScalarValue();
+}
+
+template <class T>
+bool equals(T a, T b){
+   return (a==b);
+}
+
 #endif
