@@ -36,8 +36,8 @@ vector<Line2D> GL2D;
 vector<Line3D> GL3D;
 
 //Global settings
-string curFilterOpt = "Point2D";
-string curSortOpt = "X-Ordinate";
-string curSortOrder = "ASC";
+string curFilterOpt = "Point2D";    //Point2D, Point3D, Line2D, Line3D
+string curSortOpt = "X-Ordinate";   //X-Ordinate, Y-Ordinate, Z-Ordinate, DistFrOrigin, Pt1-Ordinate, Pt2-Ordinate, Length
+string curSortOrder = "ASC";        //ASC, DSC
 
 #endif

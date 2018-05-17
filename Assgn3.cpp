@@ -392,7 +392,107 @@ int specSorOrder(){
 }
 
 int viewData(){
+   //X-Ordinate, Y-Ordinate, Z-Ordinate, DistFrOrigin, Pt1-Ordinate, Pt2-Ordinate, Length
+   //ASC, DSC
+   if (curFilterOpt == "Point2D") {
+      if (curSortOpt == "X-Ordinate") {
+         if (curSortOrder == "ASC") {
+            sort(GP2D.begin(), GP2D.end(), sortltP2DX);
+         } else if (curSortOrder == "DSC"){
+            sort(GP2D.begin(), GP2D.end(), sortltP2DX);
+            reverse(GP2D.begin(), GP2D.end());
+         }
+      } else if (curSortOpt == "Y-Ordinate") {
+         if (curSortOrder == "ASC") {
+            sort(GP2D.begin(), GP2D.end(), sortltP2DY);
+         } else if (curSortOrder == "DSC"){
+            sort(GP2D.begin(), GP2D.end(), sortltP2DY);
+            reverse(GP2D.begin(), GP2D.end());
+         }
+      } else if (curSortOpt == "DistFrOrigin") {
+         if (curSortOrder == "ASC") {
+            sort(GP2D.begin(), GP2D.end(), sortltP2DDistFrOrigin);
+         } else if (curSortOrder == "DSC"){
+            sort(GP2D.begin(), GP2D.end(), sortltP2DDistFrOrigin);
+            reverse(GP2D.begin(), GP2D.end());
+         }
+      }
+      cout << "\nPoint2D" << endl;
+      for(int i=0; i<GP2D.size(); ++i){
+         cout << i+1 << ". " << GP2D[i] << ", " << GP2D[i].getScalarValue() << endl;
+      }
 
+   } else if (curFilterOpt == "Point3D") {
+      if (curSortOpt == "X-Ordinate") {
+         if (curSortOrder == "ASC") {
+            sort(GP3D.begin(), GP3D.end(), sortltP3DX);
+         } else if (curSortOrder == "DSC"){
+            sort(GP3D.begin(), GP3D.end(), sortltP3DX);
+            reverse(GP3D.begin(), GP3D.end());
+         }
+      } else if (curSortOpt == "Y-Ordinate") {
+         if (curSortOrder == "ASC") {
+            sort(GP3D.begin(), GP3D.end(), sortltP3DY);
+         } else if (curSortOrder == "DSC"){
+            sort(GP3D.begin(), GP3D.end(), sortltP3DY);
+            reverse(GP3D.begin(), GP3D.end());
+         }
+      } else if (curSortOpt == "Z-Ordinate") {
+         if (curSortOrder == "ASC") {
+            sort(GP3D.begin(), GP3D.end(), sortltP3DZ);
+         } else if (curSortOrder == "DSC"){
+            sort(GP3D.begin(), GP3D.end(), sortltP3DZ);
+            reverse(GP3D.begin(), GP3D.end());
+         }
+      } else if (curSortOpt == "DistFrOrigin") {
+         if (curSortOrder == "ASC") {
+            sort(GP3D.begin(), GP3D.end(), sortltP3DDistFrOrigin);
+         } else if (curSortOrder == "DSC"){
+            sort(GP3D.begin(), GP3D.end(), sortltP3DDistFrOrigin);
+            reverse(GP3D.begin(), GP3D.end());
+         }
+      }
+      cout << "\nPoint3D" << endl;
+      for(int i=0; i<GP3D.size(); ++i){
+         cout << i+1 << ". " << GP3D[i] << ", " << GP3D[i].getScalarValue() << endl;
+      }
+
+   } else if (curFilterOpt == "Line2D") {
+      //X-Ordinate, Y-Ordinate, Z-Ordinate, DistFrOrigin, Pt1-Ordinate, Pt2-Ordinate, Length
+      if (curSortOpt == "Pt1-Ordinate") {
+         if (curSortOrder == "ASC") {
+            sort(GL2D.begin(), GL2D.end(), sortltL2DPt1);
+         } else if (curSortOrder == "DSC"){
+            sort(GL2D.begin(), GL2D.end(), sortltL2DPt1);
+            reverse(GL2D.begin(), GL2D.end());
+         }
+      } else if (curSortOpt == "Pt2-Ordinate") {
+         if (curSortOrder == "ASC") {
+            sort(GL2D.begin(), GL2D.end(), sortltL2DPt2);
+         } else if (curSortOrder == "DSC"){
+            sort(GL2D.begin(), GL2D.end(), sortltL2DPt2);
+            reverse(GL2D.begin(), GL2D.end());
+         }
+      } else if (curSortOpt == "Length") {
+         if (curSortOrder == "ASC") {
+            sort(GL2D.begin(), GL2D.end(), sortltL2DLength);
+         } else if (curSortOrder == "DSC"){
+            sort(GL2D.begin(), GL2D.end(), sortltL2DLength);
+            reverse(GL2D.begin(), GL2D.end());
+         }
+      }
+      cout << "\nLine2D" << endl;
+      for(int i=0; i<GL2D.size(); ++i){
+         cout << i+1 << ". " << GL2D[i] << ", " << GL2D[i].getScalarValue() << endl;
+      }
+
+   } else if (curFilterOpt == "Line3D") {
+      /* code */
+   } else {
+      cout << "Error: Dread error has occured!" << endl;
+      //exit(1);
+   }
+   return 0;
 }
 
 int storeData(){
