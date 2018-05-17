@@ -31,6 +31,8 @@ public:
    virtual double getScalarValue();
 
    friend ostream& operator <<(ostream&, Line2D&);
+   friend Line2D operator +(const Line2D&, const Line2D&);
+   friend Line2D operator -(const Line2D&, const Line2D&);
 };
 
 #endif

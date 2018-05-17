@@ -32,6 +32,8 @@ public:
    double getScalarValue();
 
    friend ostream& operator <<(ostream&, Line3D&);
+   friend Line3D operator +(const Line3D&, const Line3D&);
+   friend Line3D operator -(const Line3D&, const Line3D&);
 };
 
 #endif

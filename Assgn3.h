@@ -12,6 +12,7 @@
 #include "Point3D.h"
 #include "Line2D.h"
 #include "Line3D.h"
+#include "MyTemplates.h"
 
 using namespace std;
 

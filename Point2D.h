@@ -24,8 +24,10 @@ public:
    int setY(int);
    int getX();
    int getY();
-   double getScalarValue();
+   virtual double getScalarValue();
    friend ostream& operator <<(ostream&, Point2D&);
+   friend Point2D operator +(const Point2D&, const Point2D&);
+   friend Point2D operator -(const Point2D&, const Point2D&);
 };
 
 #endif

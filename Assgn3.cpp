@@ -5,18 +5,18 @@
 #include "Assgn3.h"
 
 int main(){
-   printVer();
+   //printVer();
    if (startMenu() == 1) {
       cout << " - - - Failed to run menu! Terminating Program! - - - " << endl;
       exit(0);
    }
 }
 
-int printVer(){
-   printf("====================================\n");
-   printf("  | Ver:   | ███████             |\n");
-   return 0;
-}
+// int printVer(){
+//    printf("====================================\n");
+//    printf("  | Ver:   | ███████             |\n");
+//    return 0;
+// }
 
 int printMMenu(){
    printf("====================================\n");
@@ -28,7 +28,7 @@ int printMMenu(){
    printf("3. Specify sorting criteria (current : %s)\n", curSortOpt.c_str());
    printf("4. Specify sorting order (current : %s)\n", curSortOrder.c_str());
    printf("5. View data\n");
-   printf("6. Store data\n");
+   printf("6. Store data to file\n");
    printf("7. Exit program\n");
    printf("====================================\n");
    printf("Select an option: ");
@@ -85,7 +85,7 @@ int readFile(string fileName){
    string line;
 	int i = 0;
 	while(getline(inFile, line)){
-		cout << "> " << line << endl; //Feeds new line;
+		//cout << "> " << line << endl; //Feeds new line;
 		if (!line.empty()){
 
 			stringstream linestream(line);
@@ -110,7 +110,7 @@ int readFile(string fileName){
             bY1 = stoi(stringY1);
 
             Point2D bP2D = Point2D(bX1, bY1);
-            cout << bP2D << endl;
+            GP2D.push_back(bP2D);
          } else if (readDataType == "Point3D"){
             // [bX, bY, bZ]
 
@@ -130,7 +130,7 @@ int readFile(string fileName){
             bZ1 = stoi(stringZ1);
 
             Point3D bP3D = Point3D(bX1, bY1, bZ1);
-            cout << bP3D << endl;
+            GP3D.push_back(bP3D);
          } else if (readDataType == "Line2D"){
             //Trim
             getline(linestream, omnom, '[');
@@ -155,7 +155,7 @@ int readFile(string fileName){
             bY2 = stoi(stringY2);
 
             Line2D bL2D = Line2D(Point2D(bX1, bY1), Point2D(bX2, bY2));
-            cout << bL2D << endl;
+            GL2D.push_back(bL2D);
          } else if (readDataType == "Line3D"){
             // [bX, bY, bZ], [bX, bY, bZ]
 
@@ -190,15 +190,62 @@ int readFile(string fileName){
             bZ2 = stoi(stringZ2);
 
             Line3D bL3D = Line3D(Point3D(bX1, bY1, bZ1), Point3D(bX2, bY2, bZ2));
-            cout << bL3D << endl;
-         } else {
-            //cout << "This cannot continue!" << endl;
+            //cout << bL3D << endl;
+            GL3D.push_back(bL3D);
          }
 		}
 		// cout << "i: " << i << endl;
     	// i++;
 	}
 	inFile.close();
+
+   cout << "\nPoint2D" << endl;
+   for(int i=0; i<GP2D.size(); ++i){
+      cout << i+1 << ". " << GP2D[i] << endl;
+   }
+
+   cout << "\nPoint3D" << endl;
+   for(int i=0; i<GP3D.size(); ++i){
+      cout << i+1 << ". " << GP3D[i] << endl;
+   }
+
+   cout << "\nLine2D" << endl;
+   for(int i=0; i<GL2D.size(); ++i){
+      cout << i+1 << ". " << GL2D[i] << endl;
+   }
+
+   cout << "\nLine3D" << endl;
+   for(int i=0; i<GL3D.size(); ++i){
+      cout << i+1 << ". " << GL3D[i] << endl;
+   }
+   cout << "====================================" << endl;
+   cout << "\nPoint2D plus" << endl;
+   for(int i=0; i<GP2D.size()-1; ++i){
+      int j = i+1;
+      Point2D tP2D = GP2D[i]+GP2D[j];
+      cout << i+1 << ". " << tP2D << endl;
+   }
+
+   cout << "\nPoint3D plus" << endl;
+   for(int i=0; i<GP3D.size()-1; ++i){
+      int j = i+1;
+      Point3D tP3D = GP3D[i]+GP3D[j];
+      cout << i+1 << ". " << tP3D << endl;
+   }
+
+   cout << "\nLine2D plus" << endl;
+   for(int i=0; i<GL2D.size()-1; ++i){
+      int j = i+1;
+      Line2D tL2D = GL2D[i]+GL2D[j];
+      cout << i+1 << ". " << tL2D << endl;
+   }
+
+   cout << "\nLine3D plus" << endl;
+   for(int i=0; i<GL3D.size()-1; ++i){
+      int j = i+1;
+      Line3D tL3D = difference(GL3D[i], GL3D[i+1]);//editing in progress 170518
+      cout << i+1 << ". " << tL3D << endl;
+   }
 
    return 0;
 }
@@ -232,11 +279,47 @@ int specFilCrit(){
 }
 
 int specSorCrit(){
-
+   string newSorCrit;
+   if (curFilterOpt == "Point2D") {
+      cout << "====================================" << endl;
+      cout << "1. Point2D records" << endl;
+      cout << "2. Point3D records" << endl;
+      cout << "3. Line2D records" << endl;
+      cout << "4. Line3D records" << endl;
+      cout << "====================================" << endl;
+   } else if (curFilterOpt == "Point3D") {
+      /* code */
+   } else if (curFilterOpt == "Line2D") {
+      /* code */
+   } else if (curFilterOpt == "Line3D") {
+      /* code */
+   } else {
+      printf("Unexpected error occured: curFilterOpt attr does not match standard\n");
+      exit(1);
+   }
+   return 0;
 }
 
 int specSorOrder(){
-
+   cout << "====================================" << endl;
+   cout << "1. Ascending order" << endl;
+   cout << "2. Descending order" << endl;
+   cout << "====================================" << endl;
+   string newSorCrit;
+   cout << "Choose a filter criteria" << endl;
+   getline(cin,newSorCrit);
+   if (newSorCrit.empty()) {
+      cout << "Error: Filepath cannot be blank!" << endl;
+      return 1;
+   } else if (newSorCrit == "1") {
+      curSortOrder = "ASC";
+   } else if (newSorCrit == "2") {
+      curSortOrder = "DSC";
+   } else {
+      cout << "Error: Enter a number 1 or 2 corresponding to the options given!" << endl;
+      return 1;
+   }
+   return 0;
 }
 
 int viewData(){
