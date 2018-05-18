@@ -4,6 +4,7 @@
 #define Point3D_H
 
 #include <iostream>
+#include <iomanip>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
@@ -30,5 +31,10 @@ public:
    friend bool operator ==(const Point3D&, const Point3D&);
    friend bool operator <(const Point3D&, const Point3D&);
 };
+
+bool sortltP3DX(Point3D, Point3D);
+bool sortltP3DY(Point3D, Point3D);
+bool sortltP3DZ(Point3D, Point3D);
+bool sortltP3DDistFrOrigin(Point3D, Point3D);
 
 #endif

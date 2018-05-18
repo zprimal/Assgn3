@@ -4,6 +4,7 @@
 #define Line3D_H
 
 #include <iostream>
+#include <iomanip>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
@@ -37,5 +38,9 @@ public:
    friend bool operator ==(const Line3D&, const Line3D&);
    friend bool operator <(const Line3D&, const Line3D&);
 };
+
+bool sortltL3DPt1(Line3D, Line3D);
+bool sortltL3DPt2(Line3D, Line3D);
+bool sortltL3DLength(Line3D, Line3D);
 
 #endif

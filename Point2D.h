@@ -4,6 +4,7 @@
 #define Point2D_H
 
 #include <iostream>
+#include <iomanip>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
@@ -25,13 +26,15 @@ public:
    int getX();
    int getY();
    virtual double getScalarValue();
-   friend bool sortltX(Point2D, Point2D);
-   friend bool sortltY(Point2D, Point2D);
    friend ostream& operator <<(ostream&, Point2D&);
    friend Point2D operator +(const Point2D&, const Point2D&);
    friend Point2D operator -(const Point2D&, const Point2D&);
    friend bool operator ==(const Point2D&, const Point2D&);
    friend bool operator <(const Point2D&, const Point2D&);
 };
+
+bool sortltP2DX(Point2D, Point2D);
+bool sortltP2DY(Point2D, Point2D);
+bool sortltP2DDistFrOrigin(Point2D, Point2D);
 
 #endif
