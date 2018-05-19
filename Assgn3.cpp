@@ -190,83 +190,13 @@ int readFile(string fileName){
             bZ2 = stoi(stringZ2);
 
             Line3D bL3D = Line3D(Point3D(bX1, bY1, bZ1), Point3D(bX2, bY2, bZ2));
-            //cout << bL3D << endl;
             GL3D.push_back(bL3D);
          }
 		}
-		// cout << "i: " << i << endl;
-    	// i++;
 	}
 	inFile.close();
 
-   cout << "\nPoint2D" << endl;
-   for(int i=0; i<GP2D.size(); ++i){
-      cout << i+1 << ". " << GP2D[i] << endl;
-   }
-
-   cout << "\nPoint3D" << endl;
-   for(int i=0; i<GP3D.size(); ++i){
-      cout << i+1 << ". " << GP3D[i] << endl;
-   }
-
-   cout << "\nLine2D" << endl;
-   for(int i=0; i<GL2D.size(); ++i){
-      cout << i+1 << ". " << GL2D[i] << endl;
-   }
-
-   cout << "\nLine3D" << endl;
-   for(int i=0; i<GL3D.size(); ++i){
-      cout << i+1 << ". " << GL3D[i] << endl;
-   }
-
    purgeDups();
-
-   cout << "\nPoint2D" << endl;
-   for(int i=0; i<GP2D.size(); ++i){
-      cout << i+1 << ". " << GP2D[i] << endl;
-   }
-
-   cout << "\nPoint3D" << endl;
-   for(int i=0; i<GP3D.size(); ++i){
-      cout << i+1 << ". " << GP3D[i] << endl;
-   }
-
-   cout << "\nLine2D" << endl;
-   for(int i=0; i<GL2D.size(); ++i){
-      cout << i+1 << ". " << GL2D[i] << endl;
-   }
-
-   cout << "\nLine3D" << endl;
-   for(int i=0; i<GL3D.size(); ++i){
-      cout << i+1 << ". " << GL3D[i] << endl;
-   }
-   /*cout << "====================================" << endl;
-   cout << "\nPoint2D plus" << endl;
-   for(int i=0; i<GP2D.size()-1; ++i){
-      int j = i+1;
-      Point2D tP2D = GP2D[i]+GP2D[j];
-      cout << i+1 << ". " << tP2D << endl;
-   }
-
-   cout << "\nPoint3D plus" << endl;
-   for(int i=0; i<GP3D.size()-1; ++i){
-      int j = i+1;
-      Point3D tP3D = GP3D[i]+GP3D[j];
-      cout << i+1 << ". " << tP3D << endl;
-   }
-
-   cout << "\nLine2D plus" << endl;
-   for(int i=0; i<GL2D.size()-1; ++i){
-      int j = i+1;
-      Line2D tL2D = GL2D[i]+GL2D[j];
-      cout << i+1 << ". " << tL2D << endl;
-   }
-
-   cout << "\nLine3D plus" << endl;
-   for(int i=0; i<GL3D.size()-1; ++i){
-      Line3D tL3D = difference(GL3D[i], GL3D[i+1]);//editing in progress 170518
-      cout << i+1 << ". " << tL3D << endl;
-   }//*/
 
    return 0;
 }
@@ -392,8 +322,6 @@ int specSorOrder(){
 }
 
 int viewData(){
-   //X-Ordinate, Y-Ordinate, Z-Ordinate, DistFrOrigin, Pt1-Ordinate, Pt2-Ordinate, Length
-   //ASC, DSC
    if (curFilterOpt == "Point2D") {
       if (curSortOpt == "X-Ordinate") {
          if (curSortOrder == "ASC") {
@@ -417,9 +345,10 @@ int viewData(){
             reverse(GP2D.begin(), GP2D.end());
          }
       }
-      cout << "\nPoint2D" << endl;
+      cout << setw(5) << "X" << setw(6) << "Y" << "    Dist. Fr Origin" << endl;
+      cout << "-------------------------------" << endl;
       for(int i=0; i<GP2D.size(); ++i){
-         cout << i+1 << ". " << GP2D[i] << ", " << GP2D[i].getScalarValue() << endl;
+         cout << GP2D[i] << "   " << fixed << setprecision(3) << GP2D[i].getScalarValue() << endl;
       }
 
    } else if (curFilterOpt == "Point3D") {
@@ -452,9 +381,10 @@ int viewData(){
             reverse(GP3D.begin(), GP3D.end());
          }
       }
-      cout << "\nPoint3D" << endl;
+      cout << setw(5) << "X" << setw(6) << "Y" << setw(6) << "Z" << "    Dist. Fr Origin" << endl;
+      cout << "-------------------------------------" << endl;
       for(int i=0; i<GP3D.size(); ++i){
-         cout << i+1 << ". " << GP3D[i] << ", " << GP3D[i].getScalarValue() << endl;
+         cout << GP3D[i] << "   " << fixed << setprecision(3) << GP3D[i].getScalarValue() << endl;
       }
 
    } else if (curFilterOpt == "Line2D") {
@@ -482,12 +412,41 @@ int viewData(){
          }
       }
       cout << "\nLine2D" << endl;
+      cout << setw(5) << "P1-X" << setw(6) << "P1-Y" << "    " << setw(5) << "P1-X" << setw(6) << "P1-Y" << "    Length" << endl;
+      cout << "------------------------------------" << endl;
       for(int i=0; i<GL2D.size(); ++i){
-         cout << i+1 << ". " << GL2D[i] << ", " << GL2D[i].getScalarValue() << endl;
+         cout << GL2D[i] << "   " << fixed << setprecision(3) << GL2D[i].getScalarValue() << endl;
       }
 
    } else if (curFilterOpt == "Line3D") {
-      /* code */
+      if (curSortOpt == "Pt1-Ordinate") {
+         if (curSortOrder == "ASC") {
+            sort(GL3D.begin(), GL3D.end(), sortltL3DPt1);
+         } else if (curSortOrder == "DSC"){
+            sort(GL3D.begin(), GL3D.end(), sortltL3DPt1);
+            reverse(GL3D.begin(), GL3D.end());
+         }
+      } else if (curSortOpt == "Pt2-Ordinate") {
+         if (curSortOrder == "ASC") {
+            sort(GL3D.begin(), GL3D.end(), sortltL3DPt2);
+         } else if (curSortOrder == "DSC"){
+            sort(GL3D.begin(), GL3D.end(), sortltL3DPt2);
+            reverse(GL3D.begin(), GL3D.end());
+         }
+      } else if (curSortOpt == "Length") {
+         if (curSortOrder == "ASC") {
+            sort(GL3D.begin(), GL3D.end(), sortltL3DLength);
+         } else if (curSortOrder == "DSC"){
+            sort(GL3D.begin(), GL3D.end(), sortltL3DLength);
+            reverse(GL3D.begin(), GL3D.end());
+         }
+      }
+      cout << "\nLine3D" << endl;
+      cout << setw(5) << "P1-X" << setw(6) << "P1-Y" << setw(6) << "P1-Z" << "    " << setw(5) << "P2-X" << setw(6) << "P2-Y" << setw(6) << "P2-Z" << "    Length" << endl;
+      cout << "---------------------------------------------------------------" << endl;
+      for(int i=0; i<GL3D.size(); ++i){
+         cout << GL3D[i] << "   " << fixed << setprecision(3) <<GL3D[i].getScalarValue() << endl;
+      }
    } else {
       cout << "Error: Dread error has occured!" << endl;
       //exit(1);
@@ -496,13 +455,149 @@ int viewData(){
 }
 
 int storeData(){
+   ofstream outfile;
+   outfile.open ("output.txt", ios::out | ios::binary);
+   if (!outfile){
+      cout << "Cannot open file output.txt" << endl;
+		return 1;
+	}
 
+   if (curFilterOpt == "Point2D") {
+      if (curSortOpt == "X-Ordinate") {
+         if (curSortOrder == "ASC") {
+            sort(GP2D.begin(), GP2D.end(), sortltP2DX);
+         } else if (curSortOrder == "DSC"){
+            sort(GP2D.begin(), GP2D.end(), sortltP2DX);
+            reverse(GP2D.begin(), GP2D.end());
+         }
+      } else if (curSortOpt == "Y-Ordinate") {
+         if (curSortOrder == "ASC") {
+            sort(GP2D.begin(), GP2D.end(), sortltP2DY);
+         } else if (curSortOrder == "DSC"){
+            sort(GP2D.begin(), GP2D.end(), sortltP2DY);
+            reverse(GP2D.begin(), GP2D.end());
+         }
+      } else if (curSortOpt == "DistFrOrigin") {
+         if (curSortOrder == "ASC") {
+            sort(GP2D.begin(), GP2D.end(), sortltP2DDistFrOrigin);
+         } else if (curSortOrder == "DSC"){
+            sort(GP2D.begin(), GP2D.end(), sortltP2DDistFrOrigin);
+            reverse(GP2D.begin(), GP2D.end());
+         }
+      }
+      outfile << setw(5) << "X" << setw(6) << "Y" << "    Dist. Fr Origin" << endl;
+      outfile << "-------------------------------" << endl;
+      for(int i=0; i<GP2D.size(); ++i){
+         outfile << GP2D[i] << "   " << fixed << setprecision(3) << GP2D[i].getScalarValue() << endl;
+      }
+
+   } else if (curFilterOpt == "Point3D") {
+      if (curSortOpt == "X-Ordinate") {
+         if (curSortOrder == "ASC") {
+            sort(GP3D.begin(), GP3D.end(), sortltP3DX);
+         } else if (curSortOrder == "DSC"){
+            sort(GP3D.begin(), GP3D.end(), sortltP3DX);
+            reverse(GP3D.begin(), GP3D.end());
+         }
+      } else if (curSortOpt == "Y-Ordinate") {
+         if (curSortOrder == "ASC") {
+            sort(GP3D.begin(), GP3D.end(), sortltP3DY);
+         } else if (curSortOrder == "DSC"){
+            sort(GP3D.begin(), GP3D.end(), sortltP3DY);
+            reverse(GP3D.begin(), GP3D.end());
+         }
+      } else if (curSortOpt == "Z-Ordinate") {
+         if (curSortOrder == "ASC") {
+            sort(GP3D.begin(), GP3D.end(), sortltP3DZ);
+         } else if (curSortOrder == "DSC"){
+            sort(GP3D.begin(), GP3D.end(), sortltP3DZ);
+            reverse(GP3D.begin(), GP3D.end());
+         }
+      } else if (curSortOpt == "DistFrOrigin") {
+         if (curSortOrder == "ASC") {
+            sort(GP3D.begin(), GP3D.end(), sortltP3DDistFrOrigin);
+         } else if (curSortOrder == "DSC"){
+            sort(GP3D.begin(), GP3D.end(), sortltP3DDistFrOrigin);
+            reverse(GP3D.begin(), GP3D.end());
+         }
+      }
+      outfile << setw(5) << "X" << setw(6) << "Y" << setw(6) << "Z" << "    Dist. Fr Origin" << endl;
+      outfile << "-------------------------------------" << endl;
+      for(int i=0; i<GP3D.size(); ++i){
+         outfile << GP3D[i] << "   " << fixed << setprecision(3) << GP3D[i].getScalarValue() << endl;
+      }
+
+   } else if (curFilterOpt == "Line2D") {
+      //X-Ordinate, Y-Ordinate, Z-Ordinate, DistFrOrigin, Pt1-Ordinate, Pt2-Ordinate, Length
+      if (curSortOpt == "Pt1-Ordinate") {
+         if (curSortOrder == "ASC") {
+            sort(GL2D.begin(), GL2D.end(), sortltL2DPt1);
+         } else if (curSortOrder == "DSC"){
+            sort(GL2D.begin(), GL2D.end(), sortltL2DPt1);
+            reverse(GL2D.begin(), GL2D.end());
+         }
+      } else if (curSortOpt == "Pt2-Ordinate") {
+         if (curSortOrder == "ASC") {
+            sort(GL2D.begin(), GL2D.end(), sortltL2DPt2);
+         } else if (curSortOrder == "DSC"){
+            sort(GL2D.begin(), GL2D.end(), sortltL2DPt2);
+            reverse(GL2D.begin(), GL2D.end());
+         }
+      } else if (curSortOpt == "Length") {
+         if (curSortOrder == "ASC") {
+            sort(GL2D.begin(), GL2D.end(), sortltL2DLength);
+         } else if (curSortOrder == "DSC"){
+            sort(GL2D.begin(), GL2D.end(), sortltL2DLength);
+            reverse(GL2D.begin(), GL2D.end());
+         }
+      }
+      outfile << setw(5) << "P1-X" << setw(6) << "P1-Y" << "    " << setw(5) << "P1-X" << setw(6) << "P1-Y" << "    Length" << endl;
+      outfile << "------------------------------------" << endl;
+      for(int i=0; i<GL2D.size(); ++i){
+         outfile << GL2D[i] << "   " << fixed << setprecision(3) << GL2D[i].getScalarValue() << endl;
+      }
+
+   } else if (curFilterOpt == "Line3D") {
+      if (curSortOpt == "Pt1-Ordinate") {
+         if (curSortOrder == "ASC") {
+            sort(GL3D.begin(), GL3D.end(), sortltL3DPt1);
+         } else if (curSortOrder == "DSC"){
+            sort(GL3D.begin(), GL3D.end(), sortltL3DPt1);
+            reverse(GL3D.begin(), GL3D.end());
+         }
+      } else if (curSortOpt == "Pt2-Ordinate") {
+         if (curSortOrder == "ASC") {
+            sort(GL3D.begin(), GL3D.end(), sortltL3DPt2);
+         } else if (curSortOrder == "DSC"){
+            sort(GL3D.begin(), GL3D.end(), sortltL3DPt2);
+            reverse(GL3D.begin(), GL3D.end());
+         }
+      } else if (curSortOpt == "Length") {
+         if (curSortOrder == "ASC") {
+            sort(GL3D.begin(), GL3D.end(), sortltL3DLength);
+         } else if (curSortOrder == "DSC"){
+            sort(GL3D.begin(), GL3D.end(), sortltL3DLength);
+            reverse(GL3D.begin(), GL3D.end());
+         }
+      }
+      outfile << setw(5) << "P1-X" << setw(6) << "P1-Y" << setw(6) << "P1-Z" << "    " << setw(5) << "P2-X" << setw(6) << "P2-Y" << setw(6) << "P2-Z" << "    Length" << endl;
+      outfile << "---------------------------------------------------------------" << endl;
+      for(int i=0; i<GL3D.size(); ++i){
+         outfile << GL3D[i] << "   " << fixed << setprecision(3) <<GL3D[i].getScalarValue() << endl;
+      }
+   } else {
+      cout << "Error: Dread error has occured!" << endl;
+      //exit(1);
+   }
+   cout << "Data into file" << endl;
+   outfile.close();
+   return 0;
 }
 
 int purgeDups(){
    cout << "====================================" << endl;
    cout << "========-- PURGE INITIATED --=======" << endl;
-   cout << "====================================" << endl;
+   cout << "####################################" << endl;
    sort(GP2D.begin(), GP2D.end());
    GP2D.erase(unique(GP2D.begin(), GP2D.end()), GP2D.end());
 

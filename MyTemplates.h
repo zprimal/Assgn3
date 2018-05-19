@@ -17,8 +17,8 @@ T difference(T a, T b){
 
 template <class T>
 double scalar_difference(T a, T b){
-   T c = a - b;
-   return c->getScalarValue();
+   double c = a.getScalarValue() - b.getScalarValue();
+   return c;
 }
 
 template <class T>
